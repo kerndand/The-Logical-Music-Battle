@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<title>Quiz</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="/static/quiz.css" type="text/css" media="screen" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="/static/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/quizB.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/quizlib.js" type="text/javascript" charset="utf-8"></script>	
+</head>
+
+<body>
+	<!--
+	<h2>State A:{{a}}</h2>
+	<h2>State B:{{b}}</h2>
+	<script>
+	document.write("A:{{a}}");
+	</script>
+	-->
+	<div id="anzeige">leer</div>
+	<div id="anzeige2">leer</div>
+	<div id="anzeige3">leer</div>
+	
+	<iframe allow="camera; microphone; fullscreen; display-capture; autoplay" src="https://meet.jit.si/RationaleFreiheit" style="height: 100%; width: 50%; border: 0px;"></iframe>
+	
+	<div id="center">
+		<button id="start" onclick="set_b();">START</button>
+		<!-- Quiz Results -->
+		<p id="result"></p>
+		<p id="questionsDone">Du hast alle Fragen beantwortet!</p>
+		
+		<audio id="explanation" controls>
+			<source src="/static/audio/explanation_V2.mp3" type="audio/mpeg">
+		</audio>
+		<p id="waitingSong">Warte: Spieler 1 wählt einen Song!</p>
+		
+		<video id="video1"><source src="/static/video/Player2-1.mp4"></video>
+		<video id="video2"><source src="/static/video/Player2-2.mp4"></video>
+		<video id="video3"><source src="/static/video/Player2-3.mp4"></video>
+		<video id="video4"><source src="/static/video/Player2-4.mp4"></video>
+
+		<!-- Quiz Container -->
+		<div id="quiz">
+			<!-- Question 1 -->
+			<div id="q1" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a1" controls>
+						<source src="/static/audio/q1.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q1" onclick="changeQuestion();" value="a">30</label>
+						<label><input type="radio" name="q1" onclick="changeQuestion();" value="b">200</label>
+						<label><input type="radio" name="q1" onclick="changeQuestion();" value="c">100</label>
+						<label><input type="radio" name="q1" onclick="changeQuestion();" value="d">1000</label>
+				</div>
+			</div>
+			<!-- Question 2 -->
+			<div id="q2" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a2" controls><source src="/static/audio/q2.mp3" type="audio/mpeg"></audio>
+				</div>
+				<div class="quizlib-question-answers">
+					<label><input type="radio" name="q2" onclick="changeQuestion();" value="a">Astra Zeneca</label>
+					<label><input type="radio" name="q2" onclick="changeQuestion();" value="b">Johnson & Johnson</label>
+					<label><input type="radio" name="q2" onclick="changeQuestion();" value="c">BioNTech</label>
+					<label><input type="radio" name="q2" onclick="changeQuestion();" value="d">ALTA</label>
+				</div>
+			</div>
+			<!-- Question 3 -->
+			<div id="q3" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a3" controls>
+						<source src="/static/audio/q3.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q3" onclick="changeQuestion();" value="a">ALTA</label>
+						<label><input type="radio" name="q3" onclick="changeQuestion();" value="b">Johnson & Johnson</label>
+						<label><input type="radio" name="q3" onclick="changeQuestion();" value="c">Astra Zeneca</label>
+						<label><input type="radio" name="q3" onclick="changeQuestion();" value="d">Alle</label>
+				</div>
+			</div>
+			<!-- Question 4 -->
+			<div id="q4" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a4" controls>
+						<source src="/static/audio/q4.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q4" onclick="changeQuestion();" value="a">Press Spahn</label>
+						<label><input type="radio" name="q4" onclick="changeQuestion();" value="b">Jens Spahn</label>
+						<label><input type="radio" name="q4" onclick="changeQuestion();" value="c">Robert Koch</label>
+						<label><input type="radio" name="q4" onclick="changeQuestion();" value="d">Christian Drosten</label>
+				</div>
+			</div>
+			<!-- Question 5 -->
+			<div id="q5" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a5" controls>
+						<source src="/static/audio/q5.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q5" onclick="changeQuestion();" value="a">RKI</label>
+						<label><input type="radio" name="q5" onclick="changeQuestion();" value="b">Bundestag</label>
+						<label><input type="radio" name="q5" onclick="changeQuestion();" value="c">WHO</label>
+						<label><input type="radio" name="q5" onclick="changeQuestion();" value="d">Jens Spahn</label>
+				</div>
+			</div>
+			<!-- Question 6 -->
+			<div id="q6" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a6" controls>
+						<source src="/static/audio/q6.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q6" onclick="changeQuestion();" value="a">Wuhan, China</label>
+						<label><input type="radio" name="q6" onclick="changeQuestion();" value="b">Yeah, China</label>
+						<label><input type="radio" name="q6" onclick="changeQuestion();" value="c">Mumbai, Indien</label>
+						<label><input type="radio" name="q6" onclick="changeQuestion();" value="d">Akola, Indien</label>
+				</div>
+			</div>
+			<!-- Question 7 -->
+			<div id="q7" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a7" controls>
+						<source src="/static/audio/q7.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q7" onclick="changeQuestion();" value="a">Knoblauch</label>
+						<label><input type="radio" name="q7" onclick="changeQuestion();" value="b">AHA-Formel</label>
+						<label><input type="radio" name="q7" onclick="changeQuestion();" value="c">Gesicht desinfizieren</label>
+						<label><input type="radio" name="q7" onclick="changeQuestion();" value="d">OHNEE-Formel</label>
+				</div>
+			</div>
+			<!-- Question 8 -->
+			<div id="q8" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a8" controls>
+						<source src="/static/audio/q8.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q8" onclick="changeQuestion();" value="a">Jugendliche</label>
+						<label><input type="radio" name="q8" onclick="changeQuestion();" value="b">Frauen</label>
+						<label><input type="radio" name="q8" onclick="changeQuestion();" value="c">Männer</label>
+						<label><input type="radio" name="q8" onclick="changeQuestion();" value="d">Alte Menschen</label>
+				</div>
+			</div>
+			<!-- Question 9 -->
+			<div id="q9" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a9" controls>
+						<source src="/static/audio/q9.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q9" onclick="changeQuestion();" value="a">14 Tage</label>
+						<label><input type="radio" name="q9" onclick="changeQuestion();" value="b">35 Tage</label>
+						<label><input type="radio" name="q9" onclick="changeQuestion();" value="c">14 Stunden</label>
+						<label><input type="radio" name="q9" onclick="changeQuestion();" value="d">14 Werktage</label>
+				</div>
+			</div>
+			<!-- Question 10 -->
+			<div id="q10" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a10" controls>
+						<source src="/static/audio/q10.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q10" onclick="changeQuestion();" value="a">Tränende Augen</label>
+						<label><input type="radio" name="q10" onclick="changeQuestion();" value="b">Halsschmerzen</label>
+						<label><input type="radio" name="q10" onclick="changeQuestion();" value="c">Blaue Zunge</label>
+						<label><input type="radio" name="q10" onclick="changeQuestion();" value="d">Schwitzige Hände</label>
+				</div>
+			</div>
+			<!-- Question 11 -->
+			<div id="q11" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a11" controls>
+						<source src="/static/audio/q11.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q11" onclick="changeQuestion();" value="a">Nach 3. Impfung</label>
+						<label><input type="radio" name="q11" onclick="changeQuestion();" value="b">Nie</label>
+						<label><input type="radio" name="q11" onclick="changeQuestion();" value="c">14 Tage nach Impfung</label>
+						<label><input type="radio" name="q11" onclick="changeQuestion();" value="d">Sofort nach Impfung</label>
+				</div>
+			</div>
+			<!-- Question 12 -->
+			<div id="q12" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a12" controls>
+						<source src="/static/audio/q12.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q12" onclick="changeQuestion();" value="a">Lottoziehung</label>
+						<label><input type="radio" name="q12" onclick="changeQuestion();" value="b">Impfquote</label>
+						<label><input type="radio" name="q12" onclick="changeQuestion();" value="c">7-Tage-Inzidenz</label>
+						<label><input type="radio" name="q12" onclick="changeQuestion();" value="d">Einschaltquote ZDF</label>
+				</div>
+			</div>
+			<!-- Question 13 -->
+			<div id="q13" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a13" controls>
+						<source src="/static/audio/q13.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q13" onclick="changeQuestion();" value="a">Laborunfall</label>
+						<label><input type="radio" name="q13" onclick="changeQuestion();" value="b">Fledermausfleisch</label>
+						<label><input type="radio" name="q13" onclick="changeQuestion();" value="c">Chemieabfälle</label>
+						<label><input type="radio" name="q13" onclick="changeQuestion();" value="d">Klimawandel</label>
+				</div>
+			</div>
+			<!-- Question 14 -->
+			<div id="q14" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a14" controls>
+						<source src="/static/audio/q14.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q14" onclick="changeQuestion();" value="a">3</label>
+						<label><input type="radio" name="q14" onclick="changeQuestion();" value="b">4</label>
+						<label><input type="radio" name="q14" onclick="changeQuestion();" value="c">5</label>
+						<label><input type="radio" name="q14" onclick="changeQuestion();" value="d">7</label>
+				</div>
+			</div>
+			<!-- Question 15 -->
+			<div id="q15" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a15" controls>
+						<source src="/static/audio/q15.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q15" onclick="changeQuestion();" value="a">Großbritannien</label>
+						<label><input type="radio" name="q15" onclick="changeQuestion();" value="b">Indien</label>
+						<label><input type="radio" name="q15" onclick="changeQuestion();" value="c">Afrika</label>
+						<label><input type="radio" name="q15" onclick="changeQuestion();" value="d">Frankreich</label>
+				</div>
+			</div>
+			<!-- Question 16 -->
+			<div id="q16" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a16" controls>
+						<source src="/static/audio/q16.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q16" onclick="changeQuestion();" value="a">Sprechen</label>
+						<label><input type="radio" name="q16" onclick="changeQuestion();" value="b">Oberflächen</label>
+						<label><input type="radio" name="q16" onclick="changeQuestion();" value="c">Nahrungsmittel</label>
+						<label><input type="radio" name="q16" onclick="changeQuestion();" value="d">Atmen</label>
+				</div>
+			</div>
+			<!-- Question 17 -->
+			<div id="q17" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a17" controls>
+						<source src="/static/audio/q17.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q17" onclick="changeQuestion();" value="a">20</label>
+						<label><input type="radio" name="q17" onclick="changeQuestion();" value="b">21</label>
+						<label><input type="radio" name="q17" onclick="changeQuestion();" value="c">14</label>
+						<label><input type="radio" name="q17" onclick="changeQuestion();" value="d">15</label>
+				</div>
+			</div>
+			<!-- Question 18 -->
+			<div id="q18" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a18" controls>
+						<source src="/static/audio/q18.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q18" onclick="changeQuestion();" value="a">15%</label>
+						<label><input type="radio" name="q18" onclick="changeQuestion();" value="b">25%</label>
+						<label><input type="radio" name="q18" onclick="changeQuestion();" value="c">40%</label>
+						<label><input type="radio" name="q18" onclick="changeQuestion();" value="d">60%</label>
+				</div>
+			</div>
+			<!-- Question 19 -->
+			<div id="q19" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a19" controls>
+						<source src="/static/audio/q19.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q19" onclick="changeQuestion();" value="a">Ring/Kreis</label>
+						<label><input type="radio" name="q19" onclick="changeQuestion();" value="b">Stachel/Dorn</label>
+						<label><input type="radio" name="q19" onclick="changeQuestion();" value="c">Kranz/Krone</label>
+						<label><input type="radio" name="q19" onclick="changeQuestion();" value="d">Gesang/Melodie</label>
+				</div>
+			</div>
+			<!-- Question 20 -->
+			<div id="q20" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a20" controls>
+						<source src="/static/audio/q20.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q20" onclick="changeQuestion();" value="a">Entdeckerin</label>
+						<label><input type="radio" name="q20" onclick="changeQuestion();" value="b">Spanischer Ort</label>
+						<label><input type="radio" name="q20" onclick="changeQuestion();" value="c">Bier</label>
+						<label><input type="radio" name="q20" onclick="changeQuestion();" value="d">Form des Virus</label>
+				</div>
+			</div>
+			<!-- Question 21 -->
+			<div id="q21" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a21" controls>
+						<source src="/static/audio/q21.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q21" onclick="changeQuestion();" value="a">SARS-CoV-2</label>
+						<label><input type="radio" name="q21" onclick="changeQuestion();" value="b">Covid-19</label>
+						<label><input type="radio" name="q21" onclick="changeQuestion();" value="c">Covid-2</label>
+						<label><input type="radio" name="q21" onclick="changeQuestion();" value="d">SARS-CoV-19</label>
+				</div>
+			</div>
+			<!-- Question 22 -->
+			<div id="q22" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a22" controls>
+						<source src="/static/audio/q22.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q22" onclick="changeQuestion();" value="a">Angela Merkel</label>
+						<label><input type="radio" name="q22" onclick="changeQuestion();" value="b">RKI</label>
+						<label><input type="radio" name="q22" onclick="changeQuestion();" value="c">WHO</label>
+						<label><input type="radio" name="q22" onclick="changeQuestion();" value="d">Joe Biden</label>
+				</div>
+			</div>
+			<!-- Question 23 -->
+			<div id="q23" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a23" controls>
+						<source src="/static/audio/q23.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q23" onclick="changeQuestion();" value="a">Hundewelpen</label>
+						<label><input type="radio" name="q23" onclick="changeQuestion();" value="b">Pilzsuppe</label>
+						<label><input type="radio" name="q23" onclick="changeQuestion();" value="c">Steckerleisten</label>
+						<label><input type="radio" name="q23" onclick="changeQuestion();" value="d">Apfeltaschen</label>
+				</div>
+			</div>
+			<!-- Question 24 -->
+			<div id="q24" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a24" controls>
+						<source src="/static/audio/q24.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q24" onclick="changeQuestion();" value="a">Schiffe</label>
+						<label><input type="radio" name="q24" onclick="changeQuestion();" value="b">Home-Office</label>
+						<label><input type="radio" name="q24" onclick="changeQuestion();" value="c">Flugzeuge</label>
+						<label><input type="radio" name="q24" onclick="changeQuestion();" value="d">Universitäten</label>
+				</div>
+			</div>
+			<!-- Question 25 -->
+			<div id="q25" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a25" controls>
+						<source src="/static/audio/q25.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q25" onclick="changeQuestion();" value="a">Amerika</label>
+						<label><input type="radio" name="q25" onclick="changeQuestion();" value="b">Mond</label>
+						<label><input type="radio" name="q25" onclick="changeQuestion();" value="c">Himalaya</label>
+						<label><input type="radio" name="q25" onclick="changeQuestion();" value="d">Milchstraße</label>
+				</div>
+			</div>
+			<!-- Question 26 -->
+			<div id="q26" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a26" controls>
+						<source src="/static/audio/q26.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q26" onclick="changeQuestion();" value="a">Meterstab</label>
+						<label><input type="radio" name="q26" onclick="changeQuestion();" value="b">Seismograph</label>
+						<label><input type="radio" name="q26" onclick="changeQuestion();" value="c">Kompass</label>
+						<label><input type="radio" name="q26" onclick="changeQuestion();" value="d">Windmesser</label>
+				</div>
+			</div>
+			<!-- Question 27 -->
+			<div id="q27" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a27" controls>
+						<source src="/static/audio/q27.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q27" onclick="changeQuestion();" value="a">Brezeln</label>
+						<label><input type="radio" name="q27" onclick="changeQuestion();" value="b">Gefriertruhen</label>
+						<label><input type="radio" name="q27" onclick="changeQuestion();" value="c">1,5l Flaschen</label>
+						<label><input type="radio" name="q27" onclick="changeQuestion();" value="d">Bleistift</label>
+				</div>
+			</div>
+			<!-- Question 28 -->
+			<div id="q28" class="card quizlib-question">
+				<div class="quizlib-question-title">
+					<audio id="a28" controls>
+						<source src="/static/audio/q28.mp3" type="audio/mpeg">
+					</audio>
+				</div>
+				<div class="quizlib-question-answers">
+						<label><input type="radio" name="q28" onclick="changeQuestion();" value="a">115 Mio</label>
+						<label><input type="radio" name="q28" onclick="changeQuestion();" value="b">1,5 Mrd</label>
+						<label><input type="radio" name="q28" onclick="changeQuestion();" value="c">12 Mio</label>
+						<label><input type="radio" name="q28" onclick="changeQuestion();" value="d">143 Tsd</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+var a,b, song;
+
+	var interval = setInterval(
+    
+			function() {
+			$.get('/ra', function(d) {
+				a = d;
+			});
+			$.get('/rb', function(d) {
+				b = d;
+			});
+			
+			$('#anzeige').html("Hallo a: "+a + " b: "+ b);
+			checkReady();	
+			
+		}, 500);
+		
+	var interval2 = setInterval(
+    
+			function() {
+			$.get('/rsong', function(d) {
+				song = d;
+			});
+			
+			$('#anzeige2').html(song);
+			checkSong();	
+			
+		}, 500);		
+		    
+	function set_a() {
+		$.get('/wa',{s:1});
+	}
+	
+	function set_b() {
+		$.get('/wb',{s:1});
+	}
+	
+	function checkReady(){
+			if (a==1 && b==1){
+				clearInterval(interval);
+					startExplanation();					
+			}else if (a==0 && b == 1){
+					$('#anzeige').html("Warte auf anderen Spieler");
+			}
+	}
+	
+	function checkSong(){
+			if (song == 1){
+				clearInterval(interval2);
+					startVideo1();					
+			}
+	}
+</script>
+</html>
